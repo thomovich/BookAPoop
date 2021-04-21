@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "587763989900",
+    "project_id": "bookapoop-1033a",
+    "storage_bucket": "bookapoop-1033a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587763989900:android:362b4278b3a04d661faaa9",
+        "android_client_info": {
+          "package_name": "com.example.userexperience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587763989900-ujklqq03jegvsvcb03811nmo0gdl27b7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.userexperience",
+            "certificate_hash": "7b931ecbfc095188dac594e7dc91217a08bf09ad"
+          }
+        },
+        {
+          "client_id": "587763989900-l8jjn0ifp8r5q8t815agla2ffq896rao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2wHvYdtd8GM-tGd3zDPb_G8SLSilP2qI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587763989900-l8jjn0ifp8r5q8t815agla2ffq896rao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
