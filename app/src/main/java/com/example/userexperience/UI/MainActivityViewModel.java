@@ -8,7 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+
 import com.example.userexperience.Data.UserRepository;
+import com.example.userexperience.models.CreateAPlaceToBook;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivityViewModel extends AndroidViewModel {
@@ -19,13 +21,11 @@ public class MainActivityViewModel extends AndroidViewModel {
     public MainActivityViewModel(Application app){
         super(app);
         userRepository = UserRepository.getInstance(app);
-
     }
 
 
     public void init(){
         String userId = userRepository.getCurrentUser().getValue().getUid();
-
     }
 
     public void signOut(){
@@ -35,5 +35,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     public LiveData<FirebaseUser> getCurrentUser(){
         return userRepository.getCurrentUser();
     }
+
+
 
 }

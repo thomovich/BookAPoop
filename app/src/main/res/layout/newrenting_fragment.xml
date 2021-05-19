@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+
+    <TextView
+        android:id="@+id/titletextview"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chooseimagebutton"
+        android:text="title"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:background="@color/teal_700"/>
+
+    <EditText
+        android:id="@+id/title_edittext"
+        android:layout_width="185dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/titletextview"
+        android:background="#88b5651d"
+        android:hint="ex: great looking toilet"
+        android:inputType="textPersonName"
+
+        />
+
+    <TextView
+        android:id="@+id/pricetextview"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chooseimagebutton"
+        android:layout_toRightOf="@+id/chooseimagebutton"
+        android:background="@color/fui_bgTwitter"
+        android:text="Price"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/price_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/pricetextview"
+        android:layout_toRightOf="@+id/chooseimagebutton"
+        android:hint="ex: 20"
+        android:background="#88b5651d"
+        android:inputType="number"
+
+
+        />
+
+    <TextView
+        android:id="@+id/addresstextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_edittext"
+        android:layout_marginTop="10dp"
+        android:background="@color/fui_bgTwitter"
+        android:text="Address"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/address_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:hint="example: Århusvej 10"
+        android:background="#88b5651d"
+        android:inputType="textPostalAddress"
+        android:layout_below="@+id/addresstextview"
+        />
+
+    <TextView
+        android:id="@+id/zipcodetextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price_edittext"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/chooseimagebutton"
+        android:background="@color/fui_bgTwitter"
+        android:text="Zip Code"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/zipcode_edittext"
+        android:layout_width="135dp"
+        android:layout_height="44dp"
+        android:background="#88b5651d"
+        android:layout_below="@id/zipcodetextview"
+        android:layout_toRightOf="@+id/chooseimagebutton"
+        android:ems="10"
+        android:hint="example: 8000"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/countrytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_edittext"
+        android:layout_marginTop="20dp"
+        android:background="@color/fui_bgTwitter"
+        android:text="Country"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/country_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:background="#88b5651d"
+        android:layout_below="@+id/countrytextview"
+        android:hint="example: Denmark"
+        android:inputType="textPersonName"
+        />
+
+    <TextView
+        android:id="@+id/descriptiontextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_below="@+id/country_edittext"
+        android:layout_marginTop="20dp"
+        android:background="@color/fui_bgTwitter"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/description_edittext"
+        android:background="#88b5651d"
+        android:layout_width="310dp"
+        android:layout_height="108dp"
+        android:hint="example: great looking..."
+        android:inputType="textMultiLine"
+        android:layout_below="@id/descriptiontextview"
+       />
+
+
+
+    <Button
+        android:id="@+id/chooseimagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Choose image"
+        android:textSize="10dp"
+        android:layout_below="@+id/imagepreview"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <Button
+        android:id="@+id/createbookingbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:layout_below="@id/description_edittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/green"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/imagepreview"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:contentDescription="preview of uploaded image"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border"
+        android:scaleType="centerCrop"
+        />
+
+
+
+
+
+
+
+    <ImageView
+        android:id="@+id/backimage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/luxurybathroom"
+        android:translationZ="-40dp"
+        />
+
+
+
+</RelativeLayout>

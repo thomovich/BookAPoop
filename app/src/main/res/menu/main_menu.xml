@@ -6,10 +6,5 @@
         android:id="@+id/logout"
         android:onClick="signOut"
         />
-    <item android:title="cast"
-        android:id="@+id/cast"
-        />
-    <item android:title="settings"
-        android:id="@+id/settings"
-        />
+
 </menu>

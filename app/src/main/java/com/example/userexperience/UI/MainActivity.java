@@ -1,52 +1,70 @@
 package com.example.userexperience.UI;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
-import android.util.LogPrinter;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+
+import com.example.userexperience.Fragments.CreateNewRentingFragment;
+
+import com.example.userexperience.Fragments.FireListFragment;
+
+import com.example.userexperience.Fragments.MapFragment;
+import com.example.userexperience.Fragments.MainFragment;
 import com.example.userexperience.R;
-import com.example.userexperience.adapters.BookingsAdapter;
-import com.example.userexperience.models.PlacesToBook;
+
+
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity implements BookingsAdapter.OnListItemClickListener {
+public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    private CoordinatorLayout layout;
-    private DrawerLayout mDrawer;
+    private CoordinatorLayout coordinatorLayout;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private NavigationView nvDrawer;
+    private NavigationView navigationView;
     private MainActivityViewModel viewModel;
-    private ArrayList<PlacesToBook> places = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private ListViewModel model;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        model = new ViewModelProvider(this).get(ListViewModel.class);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED  ){
+            requestPermissions(new String[]{
+                            android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            return ;
+        }
+        model.init(this);
         checkIfSignedIn();
         fab = findViewById(R.id.fab);
-        layout = findViewById(R.id.clayout);
+        coordinatorLayout = findViewById(R.id.clayout);
+
+
 
 
 
@@ -54,56 +72,82 @@ public class MainActivity extends AppCompatActivity implements BookingsAdapter.O
         toolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        mDrawer = (DrawerLayout) findViewById(R.id.mydrawer);
-        drawerToggle = setupDrawerToggle();
-        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nvView);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        mDrawer.addDrawerListener(drawerToggle);
+        navigationView.setNavigationItemSelectedListener(this);
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+            }
 
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                navigationView.bringToFront();
+                drawerLayout.requestLayout();
+            }
 
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
 
-        fab.setOnClickListener(v->{
-            Toast.makeText(getApplicationContext(),"Klikket på floater",Toast.LENGTH_SHORT).show();
-            Snackbar snackbar = Snackbar.make(layout, "Snacky snacky", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
         });
 
 
-
-        places.add(new PlacesToBook("Nice apartment",70037,"8000 århus C", 10, 5, 4));
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.hasFixedSize();
-        BookingsAdapter bookingsAdapter = new BookingsAdapter(places, this);
-        recyclerView.setAdapter(bookingsAdapter);
-
-
-
-
+        fab.setOnClickListener(v->{
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Remember to wash your hands", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        });
+        openFragment("Main");
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.first_frag) {
+            openFragment("Main");
+        } else if (id == R.id.second_frag) {
+            openFragment("List");
+        } else if (id == R.id.third_frag) {
+            openFragment("Map");
+        } else if (id == R.id.fourth_frag) {
+            openFragment("Rent");
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+
     private ActionBarDrawerToggle setupDrawerToggle(){
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void checkIfSignedIn(){
@@ -124,11 +168,22 @@ public class MainActivity extends AppCompatActivity implements BookingsAdapter.O
         viewModel.signOut();
     }
 
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-        int listNumber = clickedItemIndex + 1;
-        Toast.makeText(this, "List Number: " + listNumber + "is" + places.get(clickedItemIndex).getTitle(), Toast.LENGTH_SHORT).show();
+
+
+
+    public void openFragment(String fragment){
+        if(fragment.equals("Main")){
+            getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.fragment_container_view, MainFragment.class, null).commit();
+        } else if (fragment.equals("List")){
+            getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.fragment_container_view, FireListFragment.class, null).commit();
+        } else if (fragment.equals("Map")){
+            getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.fragment_container_view, MapFragment.class, null).commit();
+        } else if(fragment.equals("Rent")){
+            getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.fragment_container_view, CreateNewRentingFragment.class, null).commit();
+        }
+
     }
+
 
 
 }

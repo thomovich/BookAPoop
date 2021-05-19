@@ -1,51 +1,103 @@
 package com.example.userexperience.models;
 
+import android.graphics.Bitmap;
 import android.media.Rating;
 import android.widget.ImageView;
 
-public class PlacesToBook {
+public class PlacesToBook{
+    String desc;
+    String geohash;
+    double lat;
+    double lng;
+    String price;
+    String stradr;
+    String url;
     String title;
-    int imageUrl;
-    String adress;
-    int price;
+    double distancetouser;
 
-    public PlacesToBook(String title, int imageUrl, String adress, int price, int distance, int rating) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.adress = adress;
+    public PlacesToBook(String desc, String geohash, double lat, double lng, String price, String stradr, String url, String title) {
+        this.desc = desc;
+        this.geohash = geohash;
+        this.lat = lat;
+        this.lng = lng;
         this.price = price;
-        this.distance = distance;
-        this.rating = rating;
+        this.stradr = stradr;
+        this.url = url;
+        this.title = title;
+    }
+    public PlacesToBook(){
+
     }
 
-    int distance;
-    int rating;
-
-
-    public String getAdress() {
-        return adress;
+    public String getDesc() {
+        return desc;
     }
 
-    public int getPrice() {
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getGeohash() {
+        return geohash;
+    }
+
+    public void setGeohash(String geohash) {
+        this.geohash = geohash;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(long lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(long lng) {
+        this.lng = lng;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public int getDistance() {
-        return distance;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public int getRating() {
-        return rating;
+    public String getStradr() {
+        return stradr;
     }
 
-    public String getTitle() { return title; }
+    public void setStradr(String stradr) {
+        this.stradr = stradr;
+    }
 
-    public void setTitle(String title) { this.title = title; }
+    public String getUrl() {
+        return url;
+    }
 
-    public int getImageUrl() { return imageUrl; }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public double getDistancetouser() {
+        return distancetouser;
+    }
 
-
+    public void setDistancetouser(double distancetouser) {
+        this.distancetouser = distancetouser;
+    }
 }

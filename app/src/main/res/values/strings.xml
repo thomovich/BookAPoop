@@ -2,4 +2,6 @@
     <string name="app_name">UserExperience</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
+    <string name="navheader_title">Book and rent here</string>
+    <string name="navheader_description">Choose from the items below to go to the desired page of your choosing</string>
 </resources>

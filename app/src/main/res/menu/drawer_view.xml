@@ -1,20 +1,27 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<group android:checkableBehavior="none">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view" >
+    <group android:checkableBehavior="single">
     <item
         android:id="@+id/first_frag"
-        android:title="book"
+        android:title="Main Page"
+        android:icon="@drawable/mainpageicon"
     />
     <item
         android:id="@+id/second_frag"
-        android:title="rent"
+        android:title="List"
+        android:icon="@drawable/list"
         />
     <item
         android:id="@+id/third_frag"
-        android:title="map"
+        android:title="Map"
+        android:icon="@drawable/mapicon"
+
         />
     <item
         android:id="@+id/fourth_frag"
-        android:title="list"
+        android:title="Rent out"
+        android:icon="@drawable/renticon"
         />
-</group>
+    </group>
 </menu>

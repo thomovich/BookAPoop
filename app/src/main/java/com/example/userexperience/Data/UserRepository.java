@@ -16,11 +16,13 @@ private UserRepository (Application app){
     this.app = app;
     currentUser = new UserLiveData();
 }
+
+
 public LiveData<FirebaseUser> getCurrentUser(){
     return  currentUser;
 }
 
-public static UserRepository getInstance(Application app){
+public static synchronized UserRepository getInstance(Application app){
     if(instance == null)
         instance = new UserRepository(app);
     return instance;
