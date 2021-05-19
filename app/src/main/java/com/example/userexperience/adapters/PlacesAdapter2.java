@@ -36,7 +36,6 @@ Context context;
         this.context = context;
 
         this.places = places;
-        System.out.println("added to adapter");
 
     }
 

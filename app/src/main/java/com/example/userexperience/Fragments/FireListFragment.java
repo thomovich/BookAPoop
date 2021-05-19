@@ -40,10 +40,13 @@ public class FireListFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.list_fragment,container,false);
         model = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
-        return inflater.inflate(R.layout.list_fragment,container,false);
+
+
+        return view;
 
 
     }
@@ -51,12 +54,16 @@ public class FireListFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         createlist(view);
+
+        model.getSelected().observe(getViewLifecycleOwner(), placesToBookArrayList ->{
+            places = placesToBookArrayList;
+            createlist(view);
+        });
         super.onViewCreated(view, savedInstanceState);
     }
 
 
     void createlist(View view){
-        places = model.getDatalist();
         myAdapter = new PlacesAdapter2(places, getContext());
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);

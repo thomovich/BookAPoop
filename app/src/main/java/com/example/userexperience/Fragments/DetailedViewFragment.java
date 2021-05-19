@@ -27,7 +27,6 @@ public class DetailedViewFragment extends Fragment {
     private TextView price;
     private ImageView bigimg;
     private TextView desc;
-    private Button button;
 
 
 
@@ -40,7 +39,6 @@ public class DetailedViewFragment extends Fragment {
         price = view.findViewById(R.id.Pricetext);
         bigimg = view.findViewById(R.id.BigImage);
         desc = view.findViewById(R.id.description);
-        System.out.println("view created");
         return view;
     }
 

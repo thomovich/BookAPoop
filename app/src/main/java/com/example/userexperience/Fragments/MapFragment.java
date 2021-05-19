@@ -1,6 +1,7 @@
 package com.example.userexperience.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -42,12 +43,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.map_fragment, container, false);
-        mMapView = rootView.findViewById(R.id.mapView);
-        mMapView.onCreate(savedInstanceState);
-        model = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
-        places = model.getDatalist();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mMapView.onResume();
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -68,39 +64,61 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
                 }
 
                 googleMap.setMyLocationEnabled(true);
-                LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-                Criteria criteria = new Criteria();
-                Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria,false));
-                if(location == null){
-                    LatLng Arhus = new LatLng(56.162937, 10.203921);
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(Arhus).zoom(12).build();
-                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                    System.out.println("my position is null");
-                } else {
-                    LatLng me = new LatLng(location.getLatitude(),location.getLongitude());
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(me).zoom(12).build();
-                    googleMap.addMarker(new MarkerOptions().position(me).title("you are here"));
-                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                }
 
-                for(int i = 0; i<places.size(); i++ ){
-                    LatLng marker = new LatLng(places.get(i).getLat(),places.get(i).getLng());
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(marker)
-                            .title(places.get(i).getTitle())
-                            .snippet(places.get(i).getPrice() + " kr")
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.poopemoji)));
-                }
-
-
-
-
+                populatemap();
 
             }
         });
 
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.map_fragment, container, false);
+        mMapView = rootView.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
+        model = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
+        model.getSelected().observe(getViewLifecycleOwner(), placesToBookArrayList ->{
+            places = placesToBookArrayList;
+            if(googleMap != null){
+                populatemap();
+            }
+
+        } );
+
+
+
 
         return rootView;
+    }
+
+    void populatemap(){
+        googleMap.clear();
+        for(int i = 0; i<places.size(); i++ ){
+            LatLng marker = new LatLng(places.get(i).getLat(),places.get(i).getLng());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(marker)
+                    .title(places.get(i).getTitle())
+                    .snippet(places.get(i).getPrice() + " kr")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.poopemoji)));
+        }
+        LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria,false));
+        if(location == null){
+            LatLng Arhus = new LatLng(56.162937, 10.203921);
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(Arhus).zoom(12).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        } else {
+            LatLng me = new LatLng(location.getLatitude(),location.getLongitude());
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(me).zoom(12).build();
+            googleMap.addMarker(new MarkerOptions().position(me).title("you are here"));
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
 
@@ -109,4 +127,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         marker.showInfoWindow();
         return true;
     }
+
+
 }

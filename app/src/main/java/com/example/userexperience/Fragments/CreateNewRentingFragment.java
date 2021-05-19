@@ -244,7 +244,6 @@ public class CreateNewRentingFragment extends Fragment {
         } catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println(latlng + "");
        return latlng;
     }
 
