@@ -49,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        checkIfSignedIn();
+        openFragment("Main");
         setContentView(R.layout.activity_main);
         model = new ViewModelProvider(this).get(ListViewModel.class);
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED  ){
             requestPermissions(new String[]{
@@ -60,13 +62,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             return ;
         }
         model.init(this);
-        checkIfSignedIn();
         fab = findViewById(R.id.fab);
         coordinatorLayout = findViewById(R.id.clayout);
-
-
-
-
 
         //Sætter toolbar
         toolbar = (Toolbar)findViewById(R.id.my_toolbar);
@@ -106,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Remember to wash your hands", Snackbar.LENGTH_SHORT);
             snackbar.show();
         });
-        openFragment("Main");
+
+
     }
 
     @Override
@@ -153,9 +151,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private void checkIfSignedIn(){
         viewModel.getCurrentUser().observe(this, user ->{
             if(user != null){
-                //Brugeren er logget ind
+
             } else
                 startLoginActivity();
+
         });
     }
 
@@ -184,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     }
 
+    @Override
+    protected void onStart() {
 
-
+        super.onStart();
+    }
 }

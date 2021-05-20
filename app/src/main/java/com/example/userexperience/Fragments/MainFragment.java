@@ -42,7 +42,10 @@ public class MainFragment extends Fragment {
                 MainFragmentPost post = snapshot.getValue(MainFragmentPost.class);
                 title.setText(post.getTitle());
                 article.setText(post.getContent());
-                Glide.with(getContext()).load(post.getImgurl()).into(image);
+                if(getContext() != null){
+                    Glide.with(getContext()).load(post.getImgurl()).into(image);
+                }
+
             }
 
             @Override
@@ -54,4 +57,6 @@ public class MainFragment extends Fragment {
         myref.addValueEventListener(postListener);
         return view;
     }
+
+
 }

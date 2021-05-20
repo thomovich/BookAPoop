@@ -21,6 +21,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     public MainActivityViewModel(Application app){
         super(app);
         userRepository = UserRepository.getInstance(app);
+
     }
 
 
