@@ -1,12 +1,8 @@
 package com.example.userexperience.UI;
 
 import android.app.Application;
-import android.view.View;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 
 import com.example.userexperience.Data.UserRepository;

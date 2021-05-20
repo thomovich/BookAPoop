@@ -7,7 +7,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +42,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CreateNewRentingFragment extends Fragment {
+
     EditText title;
     EditText description;
     EditText address;

@@ -4,17 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.userexperience.R;
-import com.example.userexperience.UI.MainActivity;
 import com.example.userexperience.models.MainFragmentPost;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

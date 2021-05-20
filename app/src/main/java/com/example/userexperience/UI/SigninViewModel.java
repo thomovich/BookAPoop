@@ -1,10 +1,8 @@
 package com.example.userexperience.UI;
 
 import android.app.Application;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import com.example.userexperience.Data.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 

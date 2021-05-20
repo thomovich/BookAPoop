@@ -1,10 +1,10 @@
 package com.example.userexperience.models;
 
-import android.net.Uri;
+
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Currency;
+
 
 public class CreateAPlaceToBook {
     public String title;

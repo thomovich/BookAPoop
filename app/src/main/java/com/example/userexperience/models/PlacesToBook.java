@@ -1,8 +1,6 @@
 package com.example.userexperience.models;
 
-import android.graphics.Bitmap;
-import android.media.Rating;
-import android.widget.ImageView;
+
 
 public class PlacesToBook{
     String desc;
