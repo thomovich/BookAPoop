@@ -26,3 +26,5 @@ C:
 
 W:
 * The app will not have ads, the main source of income will be a cut of the transaction. 
+
+Video: https://youtu.be/kUGgW2JBNxM
