@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         checkIfSignedIn();
         openFragment("Main");
+        //updates note
         setContentView(R.layout.activity_main);
         model = new ViewModelProvider(this).get(ListViewModel.class);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
