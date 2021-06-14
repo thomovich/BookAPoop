@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class ListViewModel extends AndroidViewModel {
     private ArrayList<PlacesToBook> places = new ArrayList<>();
     private final MutableLiveData<ArrayList<PlacesToBook>> Selected = new MutableLiveData<>();
     private Context context;
+    private GeoLocation userlocation;
     private GeoLocation center;
     private Location location;
     private double radiusinM;
@@ -83,7 +85,19 @@ public class ListViewModel extends AndroidViewModel {
         LocationManager locationManager = (LocationManager)context.getSystemService(context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria,false));
-        center = new GeoLocation(location.getLatitude(),location.getLongitude());
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+            userlocation = new GeoLocation(location.getLatitude(),location.getLongitude());
+            }
+        };
+        if(userlocation != null){
+            center = new GeoLocation(userlocation.latitude,userlocation.longitude);
+        } else {
+            userlocation = new GeoLocation(56.16, 10.20);
+            center = new GeoLocation(56.16, 10.20);
+        }
+
         radiusinM = 50*1000;
 
         List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center,radiusinM);
@@ -124,12 +138,14 @@ public class ListViewModel extends AndroidViewModel {
             places.add(placesToBook);
         }
 
+
         for(int i = 0; i<places.size(); i++){
-            GeoLocation userlocation = new GeoLocation(location.getLatitude(),location.getLongitude());
+
             GeoLocation doclocation = new GeoLocation(places.get(i).getLat(),places.get(i).getLng());
             double distancetoobject = GeoFireUtils.getDistanceBetween(doclocation,userlocation)/1000;
             places.get(i).setDistancetouser(distancetoobject);
         }
+
         sortArraylist();
         Selected.setValue(places);
 

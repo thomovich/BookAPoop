@@ -52,6 +52,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
+
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
@@ -81,6 +82,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         mMapView = rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
+
         model.getSelected().observe(getViewLifecycleOwner(), placesToBookArrayList ->{
             places = placesToBookArrayList;
             if(googleMap != null){
@@ -111,6 +113,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         if(location == null){
             LatLng Arhus = new LatLng(56.162937, 10.203921);
             CameraPosition cameraPosition = new CameraPosition.Builder().target(Arhus).zoom(12).build();
+            googleMap.addMarker(new MarkerOptions().position(Arhus).title("you are here"));
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         } else {
